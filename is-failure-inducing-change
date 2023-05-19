@@ -1,0 +1,46 @@
+#!/bin/bash
+#STATE=1
+#echo "patch.$* \n"
+cp wireworld-original.c mycp
+for i in $* ; do
+  patch -p0  < patch.$i wireworld-original.c
+  #patch.$i | patch -p0 
+done
+#cat patch.* | patch -p0 wireworld-original.c   #cerate a copy cp  loop
+if ! gcc -c wireworld-original.c; then 
+  mv mycp wireworld-original.c
+  exit 1
+fi
+#printf "$? \n" 
+#if [ $? -eq 0 ] ; then STATE=0 ; fi
+#cat patch.* | patch -R wireworld-original.c
+#printf "%srevert"
+mv mycp wireworld-original.c
+#if [ $STATE -eq 0 ] ; then 
+  #exit 1  #interesting 
+#fi
+exit 0
+
+
+
+
+
+
+
+#copy back
+
+# for i in $* ; do
+#   echo "patch.$i"
+  
+  # patch "wireworld-original.c" "patch.$i"
+  # gcc -c wireworld-original.c
+  # printf $?
+  #if [ $i -eq 3 ]; then FIRST=1 ; fi
+  # if [ $i -eq 6 ]; then SECOND=1 ; fi
+# done
+# if [ $FIRST -eq 1 ] ; then
+#   if [ $SECOND -eq 1 ] ; then
+#     exit 1 # interesting
+#   fi
+# fi
+# exit 0
